@@ -1,0 +1,12 @@
+{
+  "require": {
+    "unleash/client": "^1.6",
+    "guzzlehttp/guzzle": "^7.4",
+    "symfony/cache": "^5.3"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}
