@@ -26,7 +26,7 @@ $unleash = UnleashBuilder::create()
     ->withContextProvider($contextProvider)
     ->build();
 
-$featureFlagNames = ["ShowCurrentDateTime", "ShowInUppercase", "myff1"];
+$featureFlagNames = ["ShowCurrentDateTime", "ShowInUppercase", "DisplayTextInRed"];
 
 foreach ($featureFlagNames as $flagName) {
     $isEnabled = $unleash->isEnabled($flagName);
@@ -41,9 +41,16 @@ echo nl2br($content);
 
 $body = "\nIts a beautiful day.\n";
 if($unleash->isEnabled("ShowCurrentDateTime")) {
-    $body += "\nCurrent DateTime is " . gmdate('Y-m-d H:i:s', time()) . "\n";
+    $body .= "\nCurrent DateTime is " . gmdate('Y-m-d H:i:s', time()) . "\n";
 }
-echo nl2br($body); 
+
+if($unleash->isEnabled("ShowInUppercase"))
+    $body = strtoupper($body);
+
+if($unleash->isEnabled("DisplayTextInRed")) 
+    $body = "<span style='color:red;'>" . nl2br($body) . "</span>";
+
+echo nl2br($body);
 
 ob_flush();
 flush();
